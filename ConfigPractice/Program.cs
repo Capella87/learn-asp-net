@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 
@@ -16,6 +17,10 @@ builder.Configuration
 if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddUserSecrets<Program>();
+}
+else
+{
+    builder.Configuration.AddEnvironmentVariables();
 }
 
 // Bind a section to proper POCO option class.
@@ -64,7 +69,6 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-app.UseHsts();
 app.UseHttpsRedirection();
 app.UseHttpLogging();
 app.UseAntiforgery();
@@ -76,8 +80,9 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler();
+    app.UseExceptionHandler("/Error");
 }
+app.UseHsts();
 
 app.MapRazorPages();
 

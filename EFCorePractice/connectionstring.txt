@@ -1,0 +1,65 @@
+Connection String Examples:
+
+* For Microsoft SQL Server (Not LocalDB)
+
+Server=localhost;Database=paramore;Encrypt=True;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True
+
+[Details]
+Server : localhost
+Database : Database name that you've created.
+Encrypt : Enable encryption
+TrustServerCertificate : Trust the server certificate even if it is self-signed.
+Trusted_Connection : Use Windows Authentication
+MultipleActiveResultSets : Allow multiple active result sets (MARS)
+
+[Extras - Database creation options (TSQL)]
+CREATE DATABASE {YourDatabaseName}
+    COLLATE Korean_100_CS_AS_KS_WS_SC_UTF8;
+
+[Details]
+COLLATE : Korean_100_CS_AS_KS_WS_SC_UTF8
+- Korean : Korean collation
+- 100 : Version 100
+- CS : Case-sensitive
+- AS : Accent-sensitive
+- KS : Kana-sensitive
+- WS : Width-sensitive
+- SC : Supplementary-character-sensitive
+- UTF8 : UTF-8 encoding (It is not supported in earlier versions than SQL Server 2019.)
+
+Note: NVARCHAR or NCHAR columns should be used for Unicode characters.
+
+* For MariaDB
+You have to 3rd party NuGet package to connect to MariaDB databases.
+
+
+* For SQLite
+SQLite is a fast and lightweight file based database. It doesn't require a server to run.
+You can use it for small applications or testing purposes.
+
+
+* For PostgreSQL
+I have not used PostgreSQL yet.
+
+
+
+* Where to save connection strings?
+It reminds me saving Docker secrets safely.. I was bothering with this issue.
+
+There are many ways to store connection strings:
+    * Hard coding (Highly NOT recommended)
+    * appsettings.json or any configuration files (Easy to store and safer than the former)
+    * Environment Variables (Quite safer and very simple, but it is still stored as plain text and malicious process may steal your secrets)
+    * User Secrets (Somewhat, but NOT recommended for production level)
+    * Azure Key Vault or 3rd party key vault services (Safest, Recommeded for production level)
+    * Self-Hosted Key Vault with open source platforms (Safe if you can be throughly responsible to maintain it)
+
+* For Development
+Using secret managers in ASP.NET Core could be the best option in development level.
+We can make a secrets comfortably on Visual Studio, or using .NET CLI with commands.
+
+* For Production
+Using environment variable or key vault (e.g. Azure Key Vault, HashiCorp Vault) is the best option in production level.
+
+* EF Core Migration
+dotnet ef update database -- --environment Development
