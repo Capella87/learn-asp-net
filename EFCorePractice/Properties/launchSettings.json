@@ -1,12 +1,22 @@
 {
   "profiles": {
-    "EFCoreHttpAndHttps": {
+    "EFCoreHttpAndHttps-Dev": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:20621;http://localhost:10327"
+      "applicationUrl": "https://localhost:20621;http://localhost:10327",
+      "dotnetRunMessages": true
+    },
+    "EFCorePractice-Production": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7654;http://localhost:5174"
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json"
